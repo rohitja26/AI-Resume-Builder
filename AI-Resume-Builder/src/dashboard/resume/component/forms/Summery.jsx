@@ -16,6 +16,7 @@ function Summery({ enableNext }) {
   const [loading, setLoading] = useState(false);
   const params = useParams();
   const [aiGeneratedSummeryList, setAIGeneratedSummeryList] = useState([]);
+  const [value, setValue] = useState();
 
   useEffect(() => {
     summery &&
@@ -64,6 +65,9 @@ function Summery({ enableNext }) {
       }
     );
   };
+  const handleClick = (summery) => {
+    setValue(summery);
+  };
   return (
     <div>
       <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
@@ -86,6 +90,7 @@ function Summery({ enableNext }) {
           <Textarea
             className="mt-5"
             required
+            value={value}
             onChange={(e) => setSummery(e.target.value)}
           />
           <div className=" mt-2 flex justify-end">
@@ -107,7 +112,9 @@ function Summery({ enableNext }) {
               <h2 className="font-bold my-1 text-primary">
                 Level: {item?.experience_level}
               </h2>
-              <p>{item?.summary}</p>
+              <button onClick={() => handleClick(item?.summary)}>
+                <p>{item?.summary}</p>
+              </button>
             </div>
           ))}
         </div>
