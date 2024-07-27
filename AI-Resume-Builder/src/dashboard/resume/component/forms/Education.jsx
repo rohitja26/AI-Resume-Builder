@@ -1,10 +1,10 @@
-import { LoaderCircle, University } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ResumeInforContext } from "@/context/ResumeInforContext";
-import { data } from "autoprefixer";
+
 import { useParams } from "react-router-dom";
 import GlobalApi from "./../../../../../services/GlobalApi";
 import { toast } from "sonner";
@@ -82,25 +82,25 @@ function Education() {
           <div key={index}>
             <div className="grid grid-cols-2 gap-3 border p-3 my-5 rounded-lg">
               <div className="col-span-2">
-                <label>University Name</label>
+                <label className="text-xs">University Name</label>
                 <Input
                   name="universityName"
                   onChange={(e) => handleChange(e, index)}
                 />
               </div>
               <div>
-                <label>Degree</label>
+                <label className="text-xs">Degree</label>
                 <Input name="degree" onChange={(e) => handleChange(e, index)} />
               </div>
               <div>
-                <label>Persentage</label>
+                <label className="text-xs">Persentage</label>
                 <Input
                   name="percentage"
                   onChange={(e) => handleChange(e, index)}
                 />
               </div>
               <div>
-                <label>Start Date</label>
+                <label className="text-xs">Start Date</label>
                 <Input
                   type="date"
                   name="startDate"
@@ -108,7 +108,7 @@ function Education() {
                 />
               </div>
               <div>
-                <label>End Date</label>
+                <label className="text-xs">End Date</label>
                 <Input
                   type="date"
                   name="endDate"
@@ -116,7 +116,7 @@ function Education() {
                 />
               </div>
               <div className="col-span-2">
-                <label>Description</label>
+                <label className="text-xs">Description</label>
                 <Textarea
                   name="description"
                   onChange={(e) => handleChange(e, index)}
