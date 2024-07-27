@@ -3,6 +3,10 @@ import { Input } from "@/components/ui/input";
 import React, { useContext, useEffect, useState } from "react";
 import RichTextEditor from "../RichTextEditor";
 import { ResumeInforContext } from "@/context/ResumeInforContext";
+import { LoaderCircle } from "lucide-react";
+import { useParams } from "react-router-dom";
+import GlobalApi from "./../../../../../services/GlobalApi";
+import { toast } from "sonner";
 
 const formField = {
   title: "",
@@ -14,6 +18,8 @@ const formField = {
   workSummery: "",
 };
 function Experience() {
+  const params = useParams();
+  const [loading, setLoading] = useState(false);
   const [experienceList, setExperienceList] = useState([formField]);
   const handleChange = (index, event) => {
     const newEntries = experienceList.slice();
@@ -41,6 +47,26 @@ function Experience() {
       experience: experienceList,
     });
   }, [experienceList]);
+  const onSave = () => {
+    setLoading(true);
+    const data = {
+      data: {
+        eperience: experienceList,
+      },
+    };
+    GlobalApi.UpateResumeDetail(params.resumeId, data).then(
+      (resp) => {
+        console.log(resp);
+        setLoading(false);
+        toast("Details Updated !");
+      },
+      (error) => {
+        setLoading(false);
+        toast("server error please try again");
+        console.log(error);
+      }
+    );
+  };
   return (
     <div>
       <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
@@ -124,7 +150,10 @@ function Experience() {
               - Remove
             </Button>
           </div>
-          <Button>Save</Button>
+          {/* <Button>Save</Button> */}
+          <Button disabled={loading} onClick={() => onSave()}>
+            {loading ? <LoaderCircle className="animate-spin" /> : "Save"}
+          </Button>
         </div>
       </div>
     </div>
