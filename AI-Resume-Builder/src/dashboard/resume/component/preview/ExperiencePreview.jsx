@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 function ExperiencePreview({ resumeInfo }) {
   return (
@@ -17,7 +17,7 @@ function ExperiencePreview({ resumeInfo }) {
         }}
       />
 
-      {resumeInfo?.experience.map((experience, index) => (
+      {resumeInfo?.eperience?.map((experience, index) => (
         <div key={index} className="my-5">
           <h2
             className="text-sm font-bold"

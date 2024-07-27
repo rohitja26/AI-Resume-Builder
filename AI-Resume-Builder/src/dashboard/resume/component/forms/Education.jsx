@@ -24,6 +24,10 @@ function Education() {
     },
   ]);
 
+  useEffect(() => {
+    resumeInfo && setEducationalList(resumeInfo?.education);
+  }, []);
+
   const handleChange = (event, index) => {
     const newEntries = educationalList.slice();
     const { name, value } = event.target;
@@ -43,6 +47,7 @@ function Education() {
       },
     ]);
   };
+
   const RemoveEducation = () => {
     setEducationalList(educationalList.slice(0, -1));
   };
@@ -50,7 +55,7 @@ function Education() {
     setLoading(true);
     const data = {
       data: {
-        education: educationalList,
+        education: educationalList.map(({ id, ...rest }) => rest),
       },
     };
     GlobalApi.UpateResumeDetail(params.resumeId, data).then(
@@ -86,17 +91,23 @@ function Education() {
                 <Input
                   name="universityName"
                   onChange={(e) => handleChange(e, index)}
+                  defaultValue={item?.universityName}
                 />
               </div>
               <div>
                 <label className="text-xs">Degree</label>
-                <Input name="degree" onChange={(e) => handleChange(e, index)} />
+                <Input
+                  name="degree"
+                  onChange={(e) => handleChange(e, index)}
+                  defaultValue={item?.degree}
+                />
               </div>
               <div>
                 <label className="text-xs">Persentage</label>
                 <Input
                   name="percentage"
                   onChange={(e) => handleChange(e, index)}
+                  defaultValue={item?.percentage}
                 />
               </div>
               <div>
@@ -105,6 +116,7 @@ function Education() {
                   type="date"
                   name="startDate"
                   onChange={(e) => handleChange(e, index)}
+                  defaultValue={item?.startDate}
                 />
               </div>
               <div>
@@ -113,6 +125,7 @@ function Education() {
                   type="date"
                   name="endDate"
                   onChange={(e) => handleChange(e, index)}
+                  defaultValue={item?.endDate}
                 />
               </div>
               <div className="col-span-2">

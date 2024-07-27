@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import RichTextEditor from "../RichTextEditor";
 import { ResumeInforContext } from "@/context/ResumeInforContext";
 import { LoaderCircle } from "lucide-react";
@@ -21,14 +21,17 @@ function Experience() {
   const params = useParams();
   const [loading, setLoading] = useState(false);
   const [experienceList, setExperienceList] = useState([formField]);
+  const { resumeInfo, setResumeInfo } = useContext(ResumeInforContext);
+  useEffect(() => {
+    resumeInfo && setExperienceList(resumeInfo?.eperience);
+  }, []);
+
   const handleChange = (index, event) => {
     const newEntries = experienceList.slice();
     const { name, value } = event.target;
     newEntries[index][name] = value;
     setExperienceList(newEntries);
   };
-
-  const { resumeInfo, setResumeInfo } = useContext(ResumeInforContext);
   const AddNewExperience = () => {
     setExperienceList([...experienceList, formField]);
   };
@@ -51,7 +54,7 @@ function Experience() {
     setLoading(true);
     const data = {
       data: {
-        eperience: experienceList,
+        eperience: experienceList.map(({ id, ...rest }) => rest),
       },
     };
     GlobalApi.UpateResumeDetail(params.resumeId, data).then(
@@ -81,6 +84,7 @@ function Experience() {
                   <Input
                     name="title"
                     onChange={(event) => handleChange(index, event)}
+                    defaultValue={item?.title}
                   />
                 </div>
                 <div>
@@ -88,6 +92,7 @@ function Experience() {
                   <Input
                     name="companyName"
                     onChange={(event) => handleChange(index, event)}
+                    defaultValue={item?.companyName}
                   />
                 </div>
                 <div>
@@ -95,6 +100,7 @@ function Experience() {
                   <Input
                     name="city"
                     onChange={(event) => handleChange(index, event)}
+                    defaultValue={item?.city}
                   />
                 </div>
                 <div>
@@ -102,6 +108,7 @@ function Experience() {
                   <Input
                     name="state"
                     onChange={(event) => handleChange(index, event)}
+                    defaultValue={item?.state}
                   />
                 </div>
                 <div>
@@ -110,6 +117,7 @@ function Experience() {
                     type="date"
                     name="startDate"
                     onChange={(event) => handleChange(index, event)}
+                    defaultValue={item?.startDate}
                   />
                 </div>
                 <div>
@@ -118,6 +126,7 @@ function Experience() {
                     type="date"
                     name="endDate"
                     onChange={(event) => handleChange(index, event)}
+                    defaultValue={item?.endDate}
                   />
                 </div>
                 <div className="col-span-2">
@@ -127,6 +136,7 @@ function Experience() {
                     onRichTextEditorChange={(event) =>
                       handleRichTextEditor(event, "workSummery", index)
                     }
+                    defaultValue={item?.workSummery}
                   />
                 </div>
               </div>

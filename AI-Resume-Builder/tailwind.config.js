@@ -23,6 +23,12 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        one: '#38bdf8',
+        two: '#2563eb',
+        three: '#1e3a8a ',
+        backgroundImage: {
+          'custom-gradient': 'linear-gradient(90deg, #006DA4 0%, #004D74 50%, #032030 100%)',
+        },
         primary: {
           DEFAULT: "#007DFC",
           foreground: "hsl(var(--primary-foreground))",

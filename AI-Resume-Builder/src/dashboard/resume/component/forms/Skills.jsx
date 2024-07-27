@@ -20,6 +20,11 @@ function Skills() {
   const { resumeInfo, setResumeInfo } = useContext(ResumeInforContext);
   const params = useParams();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    resumeInfo && setSkillsList(resumeInfo?.skills);
+  }, []);
+
   const handleChange = (index, name, value) => {
     const newEntries = skillsList.slice();
     newEntries[index][name] = value;
@@ -35,7 +40,7 @@ function Skills() {
     setLoading(true);
     const data = {
       data: {
-        skills: skillsList,
+        skills: skillsList.map(({ id, ...rest }) => rest),
       },
     };
     GlobalApi.UpateResumeDetail(params?.resumeId, data).then(

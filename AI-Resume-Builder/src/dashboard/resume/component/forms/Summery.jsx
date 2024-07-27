@@ -16,7 +16,6 @@ function Summery({ enableNext }) {
   const [loading, setLoading] = useState(false);
   const params = useParams();
   const [aiGeneratedSummeryList, setAIGeneratedSummeryList] = useState([]);
-  const [value, setValue] = useState();
 
   useEffect(() => {
     summery &&
@@ -31,28 +30,20 @@ function Summery({ enableNext }) {
     const PROMPT = prompt.replace("{jobtitle}", resumeInfo?.jobTitle);
     console.log(PROMPT);
 
-    try {
-      const result = await AIChatSession.sendMessage(PROMPT);
-      const parsedResponse = JSON.parse(result.response.text());
+    const result = await AIChatSession.sendMessage(PROMPT);
+    console.log(JSON.parse(result.response.text()));
 
-      // Ensure the response is an array
-      if (Array.isArray(parsedResponse)) {
-        setAIGeneratedSummeryList(parsedResponse);
-      } else {
-        console.error("AI response is not a valid array:", parsedResponse);
-      }
-    } catch (error) {
-      console.error("Error parsing AI response:", error);
-    } finally {
-      setLoading(false);
-    }
+    setAIGeneratedSummeryList(JSON.parse(result.response.text()));
+    setLoading(false);
   };
 
   const onSave = (e) => {
     e.preventDefault();
     setLoading(true);
     const data = {
-      summery: summery,
+      data: {
+        summery: summery,
+      },
     };
     GlobalApi.UpateResumeDetail(params?.resumeId, data).then(
       (resp) => {
@@ -65,9 +56,7 @@ function Summery({ enableNext }) {
       }
     );
   };
-  const handleClick = (summery) => {
-    setValue(summery);
-  };
+
   return (
     <div>
       <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
@@ -90,7 +79,8 @@ function Summery({ enableNext }) {
           <Textarea
             className="mt-5"
             required
-            value={value}
+            value={summery}
+            defaultValue={summery ? summery : resumeInfo?.summery}
             onChange={(e) => setSummery(e.target.value)}
           />
           <div className=" mt-2 flex justify-end">

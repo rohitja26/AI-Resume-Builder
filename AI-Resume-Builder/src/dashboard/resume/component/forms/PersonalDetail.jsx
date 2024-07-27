@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ResumeInforContext } from "@/context/ResumeInforContext";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import GlobalApi from "./../../../../../services/GlobalApi";
-import Dummy from "@/data/Dummy";
 import { LoaderCircle } from "lucide-react";
+import GlobalApi from "./../../../../../services/GlobalApi";
 
 function PersonalDetail({ enableNext }) {
   const params = useParams();
@@ -37,10 +36,12 @@ function PersonalDetail({ enableNext }) {
       (resp) => {
         enableNext(true);
         setLoading(false);
+        console.log(resp);
       },
       (error) => {
         setLoading(false);
         console.log(params?.resumeId);
+        console.log(error);
       }
     );
   };
