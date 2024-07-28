@@ -8,32 +8,46 @@ import { useParams } from "react-router-dom";
 import GlobalApi from "./../../../../../services/GlobalApi";
 import { toast } from "sonner";
 
-const formField = {
-  title: "",
-  companyName: "",
-  city: "",
-  state: "",
-  startDate: "",
-  endDate: "",
-  workSummery: "",
-};
 function Experience() {
   const params = useParams();
   const [loading, setLoading] = useState(false);
-  const [experienceList, setExperienceList] = useState([formField]);
+  const [experienceList, setExperienceList] = useState([
+    {
+      title: "",
+      companyName: "",
+      city: "",
+      state: "",
+      startDate: "",
+      endDate: "",
+      workSummery: "",
+    },
+  ]);
   const { resumeInfo, setResumeInfo } = useContext(ResumeInforContext);
   useEffect(() => {
-    resumeInfo && setExperienceList(resumeInfo?.eperience);
+    resumeInfo?.eperience.length > 0 &&
+      setExperienceList(resumeInfo?.eperience);
   }, []);
 
   const handleChange = (index, event) => {
     const newEntries = experienceList.slice();
     const { name, value } = event.target;
     newEntries[index][name] = value;
+    console.log(newEntries);
     setExperienceList(newEntries);
   };
   const AddNewExperience = () => {
-    setExperienceList([...experienceList, formField]);
+    setExperienceList([
+      ...experienceList,
+      {
+        title: "",
+        companyName: "",
+        city: "",
+        state: "",
+        startDate: "",
+        endDate: "",
+        workSummery: "",
+      },
+    ]);
   };
   const RemoveExperience = () => {
     setExperienceList((experienceList) => experienceList.slice(0, -1));
@@ -47,7 +61,7 @@ function Experience() {
   useEffect(() => {
     setResumeInfo({
       ...resumeInfo,
-      experience: experienceList,
+      eperience: experienceList,
     });
   }, [experienceList]);
   const onSave = () => {
@@ -61,11 +75,11 @@ function Experience() {
       (resp) => {
         console.log(resp);
         setLoading(false);
-        toast("Details Updated !");
+        toast.success("Details Updated !");
       },
       (error) => {
         setLoading(false);
-        toast("server error please try again");
+        toast.error("server error please try again");
         console.log(error);
       }
     );

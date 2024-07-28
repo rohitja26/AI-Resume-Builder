@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ResumeInforContext } from "@/context/ResumeInforContext";
 import { Brain, LoaderCircle } from "lucide-react";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import {
   EditorProvider,
   Editor,
@@ -24,7 +24,7 @@ const PROMPT =
 
 function RichTextEditor({ onRichTextEditorChange, index, defaultValue }) {
   const [value, setValue] = useState(defaultValue);
-  const { resumeInfo, setResumeInfo } = useContext(ResumeInforContext);
+  const { resumeInfo } = useContext(ResumeInforContext);
   const [loading, setLoading] = useState(false);
   const GenerateSummeryFromAI = async () => {
     if (!resumeInfo?.experience[index]?.title) {

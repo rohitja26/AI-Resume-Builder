@@ -23,9 +23,6 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        one: '#38bdf8',
-        two: '#2563eb',
-        three: '#1e3a8a ',
         backgroundImage: {
           'custom-gradient': 'linear-gradient(90deg, #006DA4 0%, #004D74 50%, #032030 100%)',
         },
@@ -57,6 +54,9 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        one: '#38bdf8',
+        two: '#2563eb',
+        three: '#1e3a8a ',
       },
       borderRadius: {
         lg: "var(--radius)",

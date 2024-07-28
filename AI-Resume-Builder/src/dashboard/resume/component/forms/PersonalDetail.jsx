@@ -33,14 +33,12 @@ function PersonalDetail({ enableNext }) {
       data: formData,
     };
     GlobalApi.UpateResumeDetail(params?.resumeId, data).then(
-      (resp) => {
+      () => {
         enableNext(true);
         setLoading(false);
-        console.log(resp);
       },
       (error) => {
         setLoading(false);
-        console.log(params?.resumeId);
         console.log(error);
       }
     );

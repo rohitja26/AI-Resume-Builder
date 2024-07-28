@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AddResume from "./component/AddResume";
 import GlobalApi from "./../../services/GlobalApi";
 import { useUser } from "@clerk/clerk-react";
@@ -16,6 +16,7 @@ function Dashboard() {
     GlobalApi.GetUserResumes(user?.primaryEmailAddress?.emailAddress).then(
       (resp) => {
         setResumeList(resp.data.data);
+        console.log(resp.data.data);
       }
     );
   };
@@ -32,7 +33,11 @@ function Dashboard() {
         <AddResume />
         {resumeList.length > 0 &&
           resumeList.map((resume, index) => (
-            <ResumeCardItem resume={resume} key={index} />
+            <ResumeCardItem
+              resume={resume}
+              key={index}
+              refereshData={GetResumeList}
+            />
           ))}
       </div>
     </div>

@@ -22,7 +22,7 @@ function Skills() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    resumeInfo && setSkillsList(resumeInfo?.skills);
+    resumeInfo?.skills.length > 0 && setSkillsList(resumeInfo?.skills);
   }, []);
 
   const handleChange = (index, name, value) => {

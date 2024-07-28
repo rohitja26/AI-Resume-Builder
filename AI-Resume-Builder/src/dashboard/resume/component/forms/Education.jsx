@@ -25,7 +25,8 @@ function Education() {
   ]);
 
   useEffect(() => {
-    resumeInfo && setEducationalList(resumeInfo?.education);
+    resumeInfo?.education.length > 0 &&
+      setEducationalList(resumeInfo?.education);
   }, []);
 
   const handleChange = (event, index) => {
