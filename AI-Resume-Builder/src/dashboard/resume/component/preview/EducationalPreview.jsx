@@ -1,5 +1,3 @@
-import React from "react";
-
 function EducationalPreview({ resumeInfo }) {
   return (
     <div className="my-6">
@@ -21,7 +19,7 @@ function EducationalPreview({ resumeInfo }) {
           <h2
             className="text-sm font-bold"
             style={{
-              color: resumeInfo.themeColor,
+              color: resumeInfo?.themeColor,
             }}
           >
             {education.universityName}

@@ -27,8 +27,8 @@ function RichTextEditor({ onRichTextEditorChange, index, defaultValue }) {
   const { resumeInfo } = useContext(ResumeInforContext);
   const [loading, setLoading] = useState(false);
   const GenerateSummeryFromAI = async () => {
-    if (!resumeInfo?.experience[index]?.title) {
-      toast("Please Add Position Title");
+    if (!resumeInfo?.eperience[index]?.title) {
+      toast.error("Please Add Position Title");
       return;
     }
     setLoading(true);
